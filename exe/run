@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/pygen"
+
+if ARGV.length == 1 && ARGV[0] == "help"
+    puts "Arg is --project"
+    puts "Allowable options: standard, flask, hybrid-flask"
+end
+
+allowed_options = ["standard", "flask", "hybrid-flask"]
+
+if ARGV.length != 2 || ARGV[0] != "--project" || !allowed_options.include?(ARGV[1])
+    puts "Insert --project <arg> argument"
+    puts "Allowable args: standard, flask, hybrid-flask"
+    exit
+end
+
+case ARGV[1]
+when "standard"
+    Generator.create_project_files
+when "flask"
+    Generator.create_flask_application
+when "hybrid-flask"
+    Generator.create_embedded_flask_application
+else
+    puts "Not an allowed option"
+    puts "Allowable options: standard, flask, hybrid-flask"
+end
